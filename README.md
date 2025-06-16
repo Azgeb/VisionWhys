@@ -103,6 +103,12 @@ You can customize the behavior in `config/config.py`:
 └── requirements.txt     # Dependencies
 ```
 
+## Limitations 🚧
+
+One notable limitation of the current implementation is the inability to dynamically determine the optimal radius for the highlight circle. During testing, all predefined radii were either too large or too small, and the results consistently produced similar outcomes regardless of the chosen radius. This suggests that the system lacks the capability to adaptively adjust the circle size based on context or input data.
+
+Future improvements could focus on implementing a mechanism to calculate the radius dynamically, ensuring better adaptability and precision
+
 ## 🔧 Advanced Usage
 
 - Add more prompts in `config/config.py` by extending the `AVAILABLE_PROMPTS` dictionary
