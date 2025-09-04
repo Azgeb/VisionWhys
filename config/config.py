@@ -1,12 +1,43 @@
 # AI Prompts
 PROMPT_CONCISE = '''
-You are an autonomous vehicle analyzing your environment through a camera feed. Based on the provided image, you have decided to come to a complete stop and not proceed further. Your task involves multiple steps:
-Analyze the image thoroughly and provide a detailed explanation of your decision. Identify all relevant visual or contextual factors (e.g., pedestrians, roadblocks, other vehicles, traffic signs) that contributed to your choice to stop.
-Select the single most critical object or region in the image that had the greatest influence on this decision.
-Output the precise (x, y) coordinates of the center point of that object/region. This point must reflect the actual geometric center of the object or the most relevant part of it in terms of safety (e.g., pedestrian torso, vehicle body, etc.).
-Justify clearly why this center point is correct, including how it was determined (e.g., bounding box center, contour centroid), and why this location best represents the core of the influencing factor.
-Finally, output the center point in the following format, on a new line:
-Rank 1 Center Point: (x, y)
+You are an autonomous driving vehicle not only on established paths, analyzing a camera frame. You decided to come to a full stop rather than to continue for 5 meters:
+
+1. Based on the input image, determine whether this decision was correct for the next 5 meters of movement.
+2. Explain the decision in 2–4 sentences, focusing only on the input image.
+3. Identify the single most critical object/region justifying a full stop (if correct).
+4. Provide its center point as percentages of the image width/height:
+
+   * Origin = top-left, x% → right, y% → down.
+   * Round to 1 decimal place.
+
+**Rules (rural-optimized):**
+
+* Do not speculate or guess.
+* If the path is partially unclear but shows usable continuation, prefer "correct."
+* For multiple objects, prioritize the one **directly in the drivable path**. If tied, pick the closest.
+* Do not infer beyond what is visible.
+
+---
+
+**Final Output Format (sections in order):**
+
+```
+Decision is: [CORRECT | INCORRECT]
+
+Reasoned Decision:
+[2–4 sentence explanation]
+
+Most Critical Object/Region:
+[Description]
+
+Center-Point Determination:
+* Coordinates (%): (x = ##.#%, y = ##.#%)
+* Why: [Short justification]
+
+Rank 1 Center Point: (x%, y%)
+```
+
+
 '''
 
 PROMPT_DETAILED = '''
